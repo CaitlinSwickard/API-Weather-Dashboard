@@ -33,10 +33,10 @@
 var userFormEl = document.querySelector('#user-form');
 var cityInputEl = document.querySelector('#city-name');
 var weatherContainerEl = document.querySelector('#weather-container');
+var forecastContainerEl = document.querySelector('#forecast-containers')
 
 var apiKey = '11a28f3b177613b00aee74b2e8b462f4';
-var city;
-
+var city = cityInputEl.value;
 
 
 
@@ -62,16 +62,38 @@ var citySubmit = function (event) {
 userFormEl.addEventListener('submit', citySubmit);
 
 
-
+// function to make api call
 getCityInfo = function (city) {
-  var apiUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey;
+  // weather api call
+  var apiUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&APPID=" + apiKey;
   fetch(apiUrl)
     .then(function (response) {
       return response.json();
     })
     .then(function (data) {
       console.log(data);
+      // looping through the object to find needed values to display
+      for (var i = 0; i < data.length; i++) {
+        var cityName = document.createElement('h3');
+        var temp = document.createElement('p');
+        var wind = document.createElement('p');
+        var humidity = document.createElement('p');
+        // var uvIndex = document.createElement('p');
 
+        // giving the variables data value 
+        cityName.textContent = data[i].name;
+        temp.textContent = data[i].main.temp;
+        wind.textContent = data[i].wind.speed;
+        humidity.textContent = data[i].main.humidity;
+        // uvIndex.textContent = data[i].    //where is uv index in array??
+
+        // appending text content to page in weather container div
+        weatherContainerEl.append(cityName);
+        weatherContainerEl.append(temp);
+        weatherContainerEl.append(wind);
+        weatherContainerEl.append(humidity);
+
+      }
     });
 }
 getCityInfo();
