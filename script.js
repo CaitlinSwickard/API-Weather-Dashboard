@@ -13,33 +13,73 @@
 // current weather api for lat and long
 // then api call for one call
 
+// first function is on submit button on click to get the 1st api
+// second function store long and lat into variables to pass it into the second api call
 
-// var userFormEl = document.querySelector('#user-form');
+//nested url request
+// variable for long and lat
+// 
+// then create i for loop to loop through both api calls again
+// then append all the data info that you need
+// function to store to local data
+// function to leave on page at refresh
+
+
+
+
+
+// CODE STARTS BELOW HERE!!!!
+
+var userFormEl = document.querySelector('#user-form');
 var cityInputEl = document.querySelector('#city-name');
-var searchButton = document.querySelector('.btn');
-
 var weatherContainerEl = document.querySelector('#weather-container');
 
-var apiKey = '2586e568fcf6978353d85f4ef3914364';
+var apiKey = '11a28f3b177613b00aee74b2e8b462f4';
 var city;
 
 
 
-searchButton.addEventListener('click', citySubmit);
+
+
+
+// function for user city input into form element
 var citySubmit = function (event) {
+  // prevent default action
   event.preventDefault();
+  var cityName = cityInputEl.value.trim();
+  // getting city info and setting it to empty strings 
+  if (cityName) {
+    getCityInfo(cityName)
+
+    weatherContainerEl.textContent = '';
+    cityInputEl.value = '';
+    // alert if not value input into form and they click button
+  } else {
+    alert('Please enter a city')
+  }
 };
+// click event for search button in form
+userFormEl.addEventListener('submit', citySubmit);
 
 
-var getCityInfo = function () {
-  var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey;
+
+getCityInfo = function (city) {
+  var apiUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey;
   fetch(apiUrl)
     .then(function (response) {
       return response.json();
     })
     .then(function (data) {
-      console.log(data)
+      console.log(data);
 
     });
 }
 getCityInfo();
+
+
+
+
+
+
+
+
