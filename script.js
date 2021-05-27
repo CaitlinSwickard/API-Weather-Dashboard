@@ -10,12 +10,6 @@
 // WHEN I click on a city in the search history
 // THEN I am again presented with current and future conditions for that city
 
-// current weather api for lat and long
-// then api call for one call
-// then create i for loop to loop through both api calls again
-// then append all the data info that you need
-// function to store to local data
-// function to leave on page at refresh
 
 
 
@@ -39,10 +33,9 @@ var citySubmit = function (event) {
   event.preventDefault();
   var cityName = cityInputEl.value.trim();
 
-  // getting city info and setting it to empty strings 
+  // getting city info and setting it to empty strings for alert
   if (cityName) {
     getCityInfo(cityName)
-
 
     cityInputEl.value = '';
     // alert if not value input into form and they click button
@@ -80,11 +73,11 @@ getCityInfo = function (city) {
           localStorage.setItem(city, JSON.stringify(data));
 
           displayWeatherBoard(city)
+          displayFutureForecasts(city);
 
         });
     })
 }
-
 
 
 
@@ -97,7 +90,7 @@ var humidity = document.querySelector('.card-text3');
 var uvIndex = document.querySelector('.card-text4');
 
 function displayWeatherBoard(city) {
-  // pulling value out of local storage
+  // pulling data out of local storage
   var data = JSON.parse(localStorage.getItem(city));
 
   // giving the variables data value and creating text content
@@ -111,7 +104,36 @@ function displayWeatherBoard(city) {
 
 
 
+// creating function to display forecast cards
+function displayFutureForecasts(city) {
+  // pulling data out of local storage
+  var data = JSON.parse(localStorage.getItem(city));
+  // grabbing html element for text content
+  var forecast = document.querySelectorAll('.card-forecast')
 
+  // looping through data to get daily forecast
+  // incrementing daily for 5 day forecast
+  for (var i = 0; i < forecast.length; i++) {
+
+    // creating html element
+    var date = document.createElement('h5');
+    // assigning value to text content
+    date.textContent = moment().add((i + 1), 'days').format('MMMM Do YYYY')
+
+    // need to add image icon????
+
+    var temp = document.createElement('p');
+    temp.textContent = 'Temp:' + " " + data.daily[i].temp.day + '°F';
+    var wind = document.createElement('p');
+    wind.textContent = 'Wind:' + " " + data.daily[i].wind_speed + " " + 'MPH';
+    var humidity = document.createElement('p');
+    humidity.textContent = 'Humidity:' + " " + data.daily[i].humidity + '%';
+
+    // appending created elements
+    forecast[i].append(date, temp, wind, humidity);
+
+  }
+}
 
 
 
