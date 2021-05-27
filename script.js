@@ -65,38 +65,58 @@ userFormEl.addEventListener('submit', citySubmit);
 // function to make api call
 getCityInfo = function (city) {
   // weather api call
-  var apiUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&APPID=" + apiKey;
+  var apiUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&APPID=" + apiKey;
   fetch(apiUrl)
     .then(function (response) {
       return response.json();
     })
     .then(function (data) {
       console.log(data);
-      // looping through the object to find needed values to display
-      for (var i = 0; i < data.length; i++) {
-        var cityName = document.createElement('h3');
-        var temp = document.createElement('p');
-        var wind = document.createElement('p');
-        var humidity = document.createElement('p');
-        // var uvIndex = document.createElement('p');
+      // setting variables for latitude and longitude to use in apiUrl2
+      var lat = data.coord.lat;
+      var long = data.coord.lon;
 
-        // giving the variables data value 
-        cityName.textContent = data[i].name;
-        temp.textContent = data[i].main.temp;
-        wind.textContent = data[i].wind.speed;
-        humidity.textContent = data[i].main.humidity;
-        // uvIndex.textContent = data[i].    //where is uv index in array??
+      // onecall api call
+      var apiUrl2 = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + long + "&units=imperial&appid=" + apiKey;
+      fetch(apiUrl2)
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (data) {
+          console.log(data);
+          // storing city searched to local storage
+          localStorage.setItem(city, JSON.stringify(data))
+          console.log(localStorage.setItem(city, JSON.stringify(data)))
 
-        // appending text content to page in weather container div
-        weatherContainerEl.append(cityName);
-        weatherContainerEl.append(temp);
-        weatherContainerEl.append(wind);
-        weatherContainerEl.append(humidity);
+          displayWeatherBoard(city);
+          console.log(city);
 
-      }
-    });
+        });
+    })
 }
-getCityInfo();
+
+
+
+
+function displayWeatherBoard(city) {
+  var data = JSON.parse(localStorage.getItem(city));
+  console.log(JSON.parse(localStorage.getItem(city)))
+
+  // grabbing HTML elements for display weather board
+  var cityName = document.querySelector('.card-city');
+  var currentDate = document.querySelector('.card-date');
+  var temp = document.querySelector('.card-text1');
+  var wind = document.querySelector('.card-text2');
+  var humidity = document.querySelector('.card-text3');
+  var uvIndex = document.querySelector('.card-text4');
+
+  // giving the variables data value 
+  cityName.textContent = data.name;
+  temp.textContent = data.current.temp;
+  wind.textContent = data.current.wind_speed;
+  humidity.textContent = data.current.humidity;
+  uvIndex.textContent = data.current.uvi;
+}
 
 
 
