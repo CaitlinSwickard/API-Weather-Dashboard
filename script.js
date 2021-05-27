@@ -43,7 +43,7 @@ var citySubmit = function (event) {
   if (cityName) {
     getCityInfo(cityName)
 
-    weatherContainerEl.textContent = '';
+
     cityInputEl.value = '';
     // alert if not value input into form and they click button
   } else {
@@ -88,8 +88,6 @@ getCityInfo = function (city) {
 
 
 
-
-
 // grabbing HTML elements for display weather board
 var cityName = document.querySelector('.card-city');
 var currentDate = document.querySelector('.card-date');
@@ -99,21 +97,17 @@ var humidity = document.querySelector('.card-text3');
 var uvIndex = document.querySelector('.card-text4');
 
 function displayWeatherBoard(city) {
+  // pulling value out of local storage
   var data = JSON.parse(localStorage.getItem(city));
 
-  // giving the variables data value 
-  // cityName.textContent = data.name;
-  temp.innerHTML = data.current.temp;
-  console.log(temp);
-  wind.textContent = data.current.wind_speed;
-  console.log(wind);
-  humidity.textContent = data.current.humidity;
-  console.log(humidity);
-  uvIndex.textContent = data.current.uvi;
-  console.log(uvIndex);
-
-
-}
+  // giving the variables data value and creating text content
+  cityName.textContent = city
+  currentDate.textContent = moment().format('MMMM Do YYYY')
+  temp.textContent = 'Temp:' + " " + data.current.temp + "°F";
+  wind.textContent = 'Wind:' + " " + data.current.wind_speed + " " + "MPH";
+  humidity.textContent = 'Humidity:' + " " + data.current.humidity + '%';
+  uvIndex.textContent = 'UV Index:' + " " + data.current.uvi;
+};
 
 
 
