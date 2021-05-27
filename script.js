@@ -12,13 +12,6 @@
 
 // current weather api for lat and long
 // then api call for one call
-
-// first function is on submit button on click to get the 1st api
-// second function store long and lat into variables to pass it into the second api call
-
-//nested url request
-// variable for long and lat
-// 
 // then create i for loop to loop through both api calls again
 // then append all the data info that you need
 // function to store to local data
@@ -36,8 +29,6 @@ var weatherContainerEl = document.querySelector('#weather-container');
 var forecastContainerEl = document.querySelector('#forecast-containers')
 
 var apiKey = '11a28f3b177613b00aee74b2e8b462f4';
-var city = cityInputEl.value;
-
 
 
 
@@ -47,6 +38,7 @@ var citySubmit = function (event) {
   // prevent default action
   event.preventDefault();
   var cityName = cityInputEl.value.trim();
+
   // getting city info and setting it to empty strings 
   if (cityName) {
     getCityInfo(cityName)
@@ -65,6 +57,7 @@ userFormEl.addEventListener('submit', citySubmit);
 // function to make api call
 getCityInfo = function (city) {
   // weather api call
+  var city = cityInputEl.value;
   var apiUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&APPID=" + apiKey;
   fetch(apiUrl)
     .then(function (response) {
@@ -84,12 +77,9 @@ getCityInfo = function (city) {
         })
         .then(function (data) {
           console.log(data);
-          // storing city searched to local storage
-          localStorage.setItem(city, JSON.stringify(data))
-          console.log(localStorage.setItem(city, JSON.stringify(data)))
+          localStorage.setItem(city, JSON.stringify(data));
 
-          displayWeatherBoard(city);
-          console.log(city);
+          displayWeatherBoard(city)
 
         });
     })
@@ -98,25 +88,37 @@ getCityInfo = function (city) {
 
 
 
+
+
+// grabbing HTML elements for display weather board
+var cityName = document.querySelector('.card-city');
+var currentDate = document.querySelector('.card-date');
+var temp = document.querySelector('.card-text1');
+var wind = document.querySelector('.card-text2');
+var humidity = document.querySelector('.card-text3');
+var uvIndex = document.querySelector('.card-text4');
+
 function displayWeatherBoard(city) {
   var data = JSON.parse(localStorage.getItem(city));
-  console.log(JSON.parse(localStorage.getItem(city)))
-
-  // grabbing HTML elements for display weather board
-  var cityName = document.querySelector('.card-city');
-  var currentDate = document.querySelector('.card-date');
-  var temp = document.querySelector('.card-text1');
-  var wind = document.querySelector('.card-text2');
-  var humidity = document.querySelector('.card-text3');
-  var uvIndex = document.querySelector('.card-text4');
 
   // giving the variables data value 
-  cityName.textContent = data.name;
-  temp.textContent = data.current.temp;
+  // cityName.textContent = data.name;
+  temp.innerHTML = data.current.temp;
+  console.log(temp);
   wind.textContent = data.current.wind_speed;
+  console.log(wind);
   humidity.textContent = data.current.humidity;
+  console.log(humidity);
   uvIndex.textContent = data.current.uvi;
+  console.log(uvIndex);
+
+
 }
+
+
+
+
+
 
 
 
