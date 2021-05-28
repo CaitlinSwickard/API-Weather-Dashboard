@@ -1,34 +1,18 @@
-// GIVEN a weather dashboard with form inputs
-// WHEN I search for a city
-// THEN I am presented with current and future conditions for that city and that city is added to the search history
-// WHEN I view current weather conditions for that city
-// THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index
-// WHEN I view the UV index
-// THEN I am presented with a color that indicates whether the conditions are favorable, moderate, or severe
-// WHEN I view future weather conditions for that city
-// THEN I am presented with a 5 - day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
-// WHEN I click on a city in the search history
-// THEN I am again presented with current and future conditions for that city
 
-
-
-
-// CODE STARTS BELOW HERE!!!!
-
-var userFormEl = document.querySelector('#user-form');
-var cityInputEl = document.querySelector('#city-name');
-var weatherContainerEl = document.querySelector('#weather-container');
-var forecastContainerEl = document.querySelector('#forecast-containers')
-
-var apiKey = '11a28f3b177613b00aee74b2e8b462f4';
+const userFormEl = document.querySelector('#user-form');
+let cityInputEl = document.querySelector('#city-name');
+const weatherContainerEl = document.querySelector('#weather-container');
+const forecastContainerEl = document.querySelector('#forecast-containers');
+const createSearchHistory = document.querySelector('#main-container');
+const apiKey = '11a28f3b177613b00aee74b2e8b462f4';
 
 
 
 // function for user city input into form element
-var citySubmit = function (event) {
+let citySubmit = function (event) {
   // prevent default action
   event.preventDefault();
-  var cityName = cityInputEl.value.trim();
+  let cityName = cityInputEl.value.trim();
 
   // getting city info and setting it to empty strings for alert
   if (cityName) {
@@ -39,16 +23,23 @@ var citySubmit = function (event) {
   } else {
     alert('Please enter a city')
   }
+
+  // creating buttons for previously searched cities
+  let createSearchHistoryButton = document.createElement('button');
+  createSearchHistoryButton.textContent = cityName;
+  createSearchHistory.append(createSearchHistoryButton);
+
 };
 // click event for search button in form
 userFormEl.addEventListener('submit', citySubmit);
 
 
+
 // function to make api call
 getCityInfo = function (city) {
   // weather api call
-  var city = cityInputEl.value;
-  var apiUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&APPID=" + apiKey;
+  let city = cityInputEl.value;
+  let apiUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&APPID=" + apiKey;
   fetch(apiUrl)
     .then(function (response) {
       return response.json();
@@ -56,11 +47,11 @@ getCityInfo = function (city) {
     .then(function (data) {
       console.log(data);
       // setting variables for latitude and longitude to use in apiUrl2
-      var lat = data.coord.lat;
-      var long = data.coord.lon;
+      let lat = data.coord.lat;
+      let long = data.coord.lon;
 
       // onecall api call
-      var apiUrl2 = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + long + "&units=imperial&appid=" + apiKey;
+      let apiUrl2 = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + long + "&units=imperial&appid=" + apiKey;
       fetch(apiUrl2)
         .then(function (response) {
           return response.json();
@@ -79,17 +70,17 @@ getCityInfo = function (city) {
 
 
 // grabbing HTML elements for display weather board
-var cityName = document.querySelector('.card-city');
-var currentDate = document.querySelector('.card-date');
-var temp = document.querySelector('.card-text1');
-var wind = document.querySelector('.card-text2');
-var humidity = document.querySelector('.card-text3');
-var uvIndex = document.querySelector('.card-text4');
+const cityName = document.querySelector('.card-city');
+const currentDate = document.querySelector('.card-date');
+const temp = document.querySelector('.card-text1');
+const wind = document.querySelector('.card-text2');
+const humidity = document.querySelector('.card-text3');
+const uvIndex = document.querySelector('.card-text4');
 
 // creating function to display content from api call
 function displayWeatherBoard(city) {
   // pulling data out of local storage
-  var data = JSON.parse(localStorage.getItem(city));
+  let data = JSON.parse(localStorage.getItem(city));
 
   // giving the variables data value and creating text content
   cityName.textContent = city
@@ -98,16 +89,6 @@ function displayWeatherBoard(city) {
   wind.textContent = 'Wind:' + " " + data.current.wind_speed + " " + "MPH";
   humidity.textContent = 'Humidity:' + " " + data.current.humidity + '%';
   uvIndex.textContent = 'UV Index:' + " " + data.current.uvi;
-
-  // NOT DOING THIS RIGHT!!!
-  // need to use math.floor here to loop adjust decimal??? How???
-  // if (uvIndex(Math.floor) <= 2) {
-  //   uvIndex.classList.add('low');
-  // } else if (uvIndex(Math.floor) > 2 || uvIndex(Math.floor) < 5) {
-  //   uvIndex.classList.add('moderate')
-  // } else if (uvIndex(Math.floor) <= 6)
-  //   uvIndex.classList.add('high')
-
 };
 
 
@@ -115,32 +96,35 @@ function displayWeatherBoard(city) {
 // creating function to display forecast cards
 function displayFutureForecasts(city) {
   // pulling data out of local storage
-  var data = JSON.parse(localStorage.getItem(city));
+  let data = JSON.parse(localStorage.getItem(city));
   // grabbing html element for text content
-  var forecast = document.querySelectorAll('.card-forecast')
+  let forecast = document.querySelectorAll('.card-forecast')
+
+  // creating loop to empty out div once new city is submitted for search
+  for (let i = 0; i < forecast.length; i++) {
+    forecast[i].innerHTML = "";
+  }
 
   // looping through data to get daily forecast
   // incrementing daily for 5 day forecast
-  for (var i = 0; i < forecast.length; i++) {
+  for (let i = 0; i < forecast.length; i++) {
 
     // creating html element
-    var date = document.createElement('h5');
-    var temp = document.createElement('p');
-    var wind = document.createElement('p');
-    var humidity = document.createElement('p');
+    const date = document.createElement('h5');
+    const icon = document.createElement('img');
+    const temp = document.createElement('p');
+    const wind = document.createElement('p');
+    const humidity = document.createElement('p');
 
     // assigning value to text content
     date.textContent = moment().add((i + 1), 'days').format('dddd, MMMM Do')
-
-    // NEED TO ADD IMAGE ICON??? HOW???
-
+    icon.setAttribute("src", "http://openweathermap.org/img/wn/" + data.daily[i].weather[0].icon + "@2x.png");
     temp.textContent = 'Temp:' + " " + data.daily[i].temp.day + '°F';
     wind.textContent = 'Wind:' + " " + data.daily[i].wind_speed + " " + 'MPH';
     humidity.textContent = 'Humidity:' + " " + data.daily[i].humidity + '%';
 
     // appending created elements
-    forecast[i].append(date, temp, wind, humidity);
-
+    forecast[i].append(date, icon, temp, wind, humidity,);
   }
 }
 
@@ -148,14 +132,4 @@ function displayFutureForecasts(city) {
 
 // need to create init page function
 // function should auto populate a city of choice on screen as landing page
-
-// need to create previous search history buttons
-// after user searches a city, a button will be created below the search bar
-// they can then click on that search bar and the city info will re-populate
-
-
-
-
-
-
-
+// auto populate Denver
