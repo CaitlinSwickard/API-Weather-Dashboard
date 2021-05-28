@@ -48,3 +48,19 @@
 #forecast-containers {
   margin-top: 200px;
 }
+
+/* uvIndex rating */
+.low {
+  background-color: green;
+  color: var(--primary)
+}
+
+.moderate {
+  background-color: yellow;
+  color: black;
+}
+
+.high {
+  background-color: red;
+  color: var(--primary)
+}

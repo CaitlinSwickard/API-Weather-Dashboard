@@ -13,8 +13,6 @@
 
 
 
-
-
 // CODE STARTS BELOW HERE!!!!
 
 var userFormEl = document.querySelector('#user-form');
@@ -23,7 +21,6 @@ var weatherContainerEl = document.querySelector('#weather-container');
 var forecastContainerEl = document.querySelector('#forecast-containers')
 
 var apiKey = '11a28f3b177613b00aee74b2e8b462f4';
-
 
 
 
@@ -89,17 +86,28 @@ var wind = document.querySelector('.card-text2');
 var humidity = document.querySelector('.card-text3');
 var uvIndex = document.querySelector('.card-text4');
 
+// creating function to display content from api call
 function displayWeatherBoard(city) {
   // pulling data out of local storage
   var data = JSON.parse(localStorage.getItem(city));
 
   // giving the variables data value and creating text content
   cityName.textContent = city
-  currentDate.textContent = moment().format('MMMM Do YYYY')
+  currentDate.textContent = moment().format('dddd, MMMM Do YYYY')
   temp.textContent = 'Temp:' + " " + data.current.temp + "°F";
   wind.textContent = 'Wind:' + " " + data.current.wind_speed + " " + "MPH";
   humidity.textContent = 'Humidity:' + " " + data.current.humidity + '%';
   uvIndex.textContent = 'UV Index:' + " " + data.current.uvi;
+
+  // NOT DOING THIS RIGHT!!!
+  // need to use math.floor here to loop adjust decimal??? How???
+  // if (uvIndex(Math.floor) <= 2) {
+  //   uvIndex.classList.add('low');
+  // } else if (uvIndex(Math.floor) > 2 || uvIndex(Math.floor) < 5) {
+  //   uvIndex.classList.add('moderate')
+  // } else if (uvIndex(Math.floor) <= 6)
+  //   uvIndex.classList.add('high')
+
 };
 
 
@@ -117,16 +125,17 @@ function displayFutureForecasts(city) {
 
     // creating html element
     var date = document.createElement('h5');
-    // assigning value to text content
-    date.textContent = moment().add((i + 1), 'days').format('MMMM Do YYYY')
-
-    // need to add image icon????
-
     var temp = document.createElement('p');
-    temp.textContent = 'Temp:' + " " + data.daily[i].temp.day + '°F';
     var wind = document.createElement('p');
-    wind.textContent = 'Wind:' + " " + data.daily[i].wind_speed + " " + 'MPH';
     var humidity = document.createElement('p');
+
+    // assigning value to text content
+    date.textContent = moment().add((i + 1), 'days').format('dddd, MMMM Do')
+
+    // NEED TO ADD IMAGE ICON??? HOW???
+
+    temp.textContent = 'Temp:' + " " + data.daily[i].temp.day + '°F';
+    wind.textContent = 'Wind:' + " " + data.daily[i].wind_speed + " " + 'MPH';
     humidity.textContent = 'Humidity:' + " " + data.daily[i].humidity + '%';
 
     // appending created elements
@@ -136,6 +145,13 @@ function displayFutureForecasts(city) {
 }
 
 
+
+// need to create init page function
+// function should auto populate a city of choice on screen as landing page
+
+// need to create previous search history buttons
+// after user searches a city, a button will be created below the search bar
+// they can then click on that search bar and the city info will re-populate
 
 
 
