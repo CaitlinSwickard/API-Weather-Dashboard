@@ -38,7 +38,7 @@ userFormEl.addEventListener('submit', citySubmit);
 // function to make api call
 getCityInfo = function (city) {
   // weather api call
-  let city = cityInputEl.value;
+  var city = cityInputEl.value;
   let apiUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&APPID=" + apiKey;
   fetch(apiUrl)
     .then(function (response) {
@@ -81,7 +81,7 @@ const uvIndex = document.querySelector('.card-text4');
 function displayWeatherBoard(city) {
   // pulling data out of local storage
   let data = JSON.parse(localStorage.getItem(city));
-
+  weatherContainerEl.classList.remove("hide");
   // giving the variables data value and creating text content
   cityName.textContent = city
   currentDate.textContent = moment().format('dddd, MMMM Do YYYY')
@@ -99,7 +99,7 @@ function displayFutureForecasts(city) {
   let data = JSON.parse(localStorage.getItem(city));
   // grabbing html element for text content
   let forecast = document.querySelectorAll('.card-forecast')
-
+  forecastContainerEl.classList.remove("hide");
   // creating loop to empty out div once new city is submitted for search
   for (let i = 0; i < forecast.length; i++) {
     forecast[i].innerHTML = "";
@@ -133,3 +133,6 @@ function displayFutureForecasts(city) {
 // need to create init page function
 // function should auto populate a city of choice on screen as landing page
 // auto populate Denver
+sustain = (city) => {
+  getCityInfo('Denver')
+}
