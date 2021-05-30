@@ -5,8 +5,6 @@
 
 }
 
-/* font-family: 'Mitr', sans-serif; */
-
 body {
   background-image: url(images/clear-img.jpg);
   background-repeat: no-repeat;
@@ -15,7 +13,6 @@ body {
   font-family: 'Mitr', sans-serif;;
 
 }
-
 
 #header {
   font-family: 'Mitr', sans-serif;
@@ -32,7 +29,7 @@ body {
   font-size: 1.3rem;
   text-decoration: none;
   padding: 6px 5px;
-  width: 78%;
+  width: 72%;
   display: block;
   margin: 5px 0;
   border-radius: var(--border-radius);
@@ -50,7 +47,6 @@ body {
   transform: translate(0, 0);
   box-shadow: 2px 2px;
 }
-
 
 #forecast-containers {
   margin-top: 75px;
@@ -72,13 +68,26 @@ body {
   color: var(--primary)
 }
 
+
+/* search history buttons */
+button {
+  display:inline-block;
+  text-decoration: none;
+  border: none;
+  outline: none;
+  padding:0.3em 1.2em;
+  background-color: #374e87;
+  color: var(--primary);
+  text-align:center;
+  margin: 2px;
+}
+
+
+/* card styling */
 .hide {
   display: none;
 }
 
-
-
 .card-body {
-  background-color: #dce3f5;
-  
+  background-color: #dce3f5; 
 }

@@ -127,12 +127,3 @@ function displayFutureForecasts(city) {
     forecast[i].append(date, icon, temp, wind, humidity,);
   }
 }
-
-
-
-// need to create init page function
-// function should auto populate a city of choice on screen as landing page
-// auto populate Denver
-sustain = (city) => {
-  getCityInfo('Denver')
-}
