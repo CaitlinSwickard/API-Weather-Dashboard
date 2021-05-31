@@ -1,8 +1,6 @@
 # Project: Weather Dashboard
 
-This project is a Weather Dashboard for a city that the user wants to look up. This page will display the current weather for the city as well as a 5 day weather forecast. When the user searches a city, the city is added to search history below. They can view what cities they have checked the weather for. This page is getting information from the Open Weather One Call API to give the user the needed information. 
-
-
+This project is a Weather Dashboard for a city that the user wants to look up. This page will display the current weather for the city as well as a 5 day weather forecast. When the user searches a city, the city is added to search history below. They can view what cities they have checked the weather for. This page is getting information from the Open Weather One Call API to give the user the needed information.
 
 [View deployed page here!](https://caitlinswickard.github.io/API-Weather-Dashboard/)
 
@@ -20,8 +18,6 @@ This project is a Weather Dashboard for a city that the user wants to look up. T
 - WHEN I click on a city in the search history
 - THEN I am again presented with current and future conditions for that city
 
-
-
 ## Built With
 
 - HTML
@@ -31,6 +27,6 @@ This project is a Weather Dashboard for a city that the user wants to look up. T
 
 ## Screen Shots
 
-![Search city](images/shot-1.png)
-![Populated city](images/shot-2.png)
-![Show search history of cities](images/shot-3.png)
+![Search city](images/shot1.png)
+![Populated city](images/shot2.png)
+![Show search history of cities](images/shot3.png)
