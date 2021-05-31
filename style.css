@@ -6,16 +6,17 @@
 }
 
 body {
+  min-height: 100vh;
   background-image: url(images/clear-img.jpg);
   background-repeat: no-repeat;
   background-size: cover;
-  height: 100vh;
-  font-family: 'Mitr', sans-serif;;
-
+  background-position: center center;
+  font-family: 'Comfortaa', cursive;
 }
 
 #header {
-  font-family: 'Mitr', sans-serif;
+  font-family: 'Comfortaa', cursive;
+  padding: 15px;
   font-weight: 600;
   margin-top: 0px;
   margin-bottom: 15px;
@@ -28,8 +29,9 @@ body {
 .btn {
   font-size: 1.3rem;
   text-decoration: none;
-  padding: 6px 5px;
-  width: 72%;
+  text-align: center;
+  padding: 6px 100px;
+  width: 73%;
   display: block;
   margin: 5px 0;
   border-radius: var(--border-radius);
@@ -52,26 +54,11 @@ body {
   margin-top: 75px;
 }
 
-/* uvIndex rating */
-.low {
-  background-color: green;
-  color: var(--primary)
-}
-
-.moderate {
-  background-color: yellow;
-  color: black;
-}
-
-.high {
-  background-color: red;
-  color: var(--primary)
-}
-
 
 /* search history buttons */
 button {
-  display:inline-block;
+  display:flex;
+  flex-direction: column;
   text-decoration: none;
   border: none;
   outline: none;
@@ -80,6 +67,7 @@ button {
   color: var(--primary);
   text-align:center;
   margin: 2px;
+  border-radius: 0.3rem;
 }
 
 
@@ -90,4 +78,22 @@ button {
 
 .card-body {
   background-color: #dce3f5; 
+}
+
+
+/* uvIndex rating */
+
+.low {
+  background-color: #7df5ad;
+  color: black;
+}
+
+.moderate {
+  background-color: #f1f58e;
+  color: black;
+}
+
+.high {
+  background-color: #f58c8c;
+  color: black;
 }

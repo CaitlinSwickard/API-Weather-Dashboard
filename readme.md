@@ -1,5 +1,6 @@
 # Project: Weather Dashboard
 
+This project is a Weather Dashboard for a city that the user wants to look up. This page will display the current weather for the city as well as a 5 day weather forecast. When the user searches a city, the city is added to search history below. They can view what cities they have checked the weather for. This page is getting information from the Open Weather One Call API to give the user the needed information. 
 
 
 

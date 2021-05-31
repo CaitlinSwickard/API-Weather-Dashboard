@@ -1,8 +1,8 @@
 
-const userFormEl = document.querySelector('#user-form');
-let cityInputEl = document.querySelector('#city-name');
-const weatherContainerEl = document.querySelector('#weather-container');
-const forecastContainerEl = document.querySelector('#forecast-containers');
+const userForm = document.querySelector('#user-form');
+let cityInput = document.querySelector('#city-name');
+const cityWeatherContainer = document.querySelector('#weather-container');
+const forecastContainer = document.querySelector('#forecast-containers');
 const createSearchHistory = document.querySelector('#main-container');
 const apiKey = '11a28f3b177613b00aee74b2e8b462f4';
 
@@ -12,13 +12,13 @@ const apiKey = '11a28f3b177613b00aee74b2e8b462f4';
 let citySubmit = function (event) {
   // prevent default action
   event.preventDefault();
-  let cityName = cityInputEl.value.trim();
+  let cityName = cityInput.value.trim();
 
   // getting city info and setting it to empty strings for alert
   if (cityName) {
     getCityInfo(cityName)
 
-    cityInputEl.value = '';
+    cityInput.value = '';
     // alert if not value input into form and they click button
   } else {
     alert('Please enter a city')
@@ -31,15 +31,15 @@ let citySubmit = function (event) {
 
 };
 // click event for search button in form
-userFormEl.addEventListener('submit', citySubmit);
+userForm.addEventListener('submit', citySubmit);
 
 
 
 // function to make api call
 getCityInfo = function (city) {
   // weather api call
-  var city = cityInputEl.value;
-  let apiUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&APPID=" + apiKey;
+  var city = cityInput.value;
+  let apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&APPID=" + apiKey;
   fetch(apiUrl)
     .then(function (response) {
       return response.json();
@@ -60,7 +60,7 @@ getCityInfo = function (city) {
           console.log(data);
           localStorage.setItem(city, JSON.stringify(data));
 
-          displayWeatherBoard(city)
+          displayCityWeather(city)
           displayFutureForecasts(city);
 
         });
@@ -78,10 +78,10 @@ const humidity = document.querySelector('.card-text3');
 const uvIndex = document.querySelector('.card-text4');
 
 // creating function to display content from api call
-function displayWeatherBoard(city) {
+function displayCityWeather(city) {
   // pulling data out of local storage
   let data = JSON.parse(localStorage.getItem(city));
-  weatherContainerEl.classList.remove("hide");
+  cityWeatherContainer.classList.remove("hide");
   // giving the variables data value and creating text content
   cityName.textContent = city
   currentDate.textContent = moment().format('dddd, MMMM Do YYYY')
@@ -89,6 +89,16 @@ function displayWeatherBoard(city) {
   wind.textContent = 'Wind:' + " " + data.current.wind_speed + " " + "MPH";
   humidity.textContent = 'Humidity:' + " " + data.current.humidity + '%';
   uvIndex.textContent = 'UV Index:' + " " + data.current.uvi;
+
+  // if else statements for UVIndex rating for low, moderate and high
+  if (uvIndex <= 2) {
+    // adding color from css
+    uvIndex.classList.add("low");
+  } else if (uvIndex >= 3 && uvIndex <= 7) {
+    uvIndex.classList.add("moderate");
+  } else {
+    uvIndex.classList.add("high");
+  }
 };
 
 
@@ -99,7 +109,7 @@ function displayFutureForecasts(city) {
   let data = JSON.parse(localStorage.getItem(city));
   // grabbing html element for text content
   let forecast = document.querySelectorAll('.card-forecast')
-  forecastContainerEl.classList.remove("hide");
+  forecastContainer.classList.remove("hide");
   // creating loop to empty out div once new city is submitted for search
   for (let i = 0; i < forecast.length; i++) {
     forecast[i].innerHTML = "";
