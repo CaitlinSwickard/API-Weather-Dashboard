@@ -90,11 +90,11 @@ function displayCityWeather(city) {
   humidity.textContent = 'Humidity:' + " " + data.current.humidity + '%';
   uvIndex.textContent = 'UV Index:' + " " + data.current.uvi;
 
-  // if else statements for UVIndex rating for low, moderate and high
-  if (uvIndex <= 2) {
+  // conditional statement for UVIndex rating for low, moderate and high
+  if (Math.floor(data.current.uvi) <= 2) {
     // adding color from css
     uvIndex.classList.add("low");
-  } else if (uvIndex >= 3 && uvIndex <= 7) {
+  } else if (Math.floor(data.current.uvi) >= 3 && Math.floor(data.current.uvi) <= 7) {
     uvIndex.classList.add("moderate");
   } else {
     uvIndex.classList.add("high");
@@ -127,7 +127,7 @@ function displayFutureForecasts(city) {
     const humidity = document.createElement('p');
 
     // assigning value to text content
-    date.textContent = moment().add((i + 1), 'days').format('dddd, MMMM Do')
+    date.textContent = moment().add((i + 1), 'days').format('ddd, MMMM Do')
     icon.setAttribute("src", "http://openweathermap.org/img/wn/" + data.daily[i].weather[0].icon + "@2x.png");
     temp.textContent = 'Temp:' + " " + data.daily[i].temp.day + '°F';
     wind.textContent = 'Wind:' + " " + data.daily[i].wind_speed + " " + 'MPH';

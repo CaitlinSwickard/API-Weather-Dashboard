@@ -77,15 +77,15 @@ button {
 }
 
 .card-body {
-  background-color: #dce3f5; 
+  background-color: #c7d3f2; 
 }
 
 
 /* uvIndex rating */
-
 .low {
   background-color: #7df5ad;
   color: black;
+  padding-left: 0px;
 }
 
 .moderate {
