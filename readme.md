@@ -25,6 +25,11 @@ This project is a Weather Dashboard for a city that the user wants to look up. T
 - Bootstrap
 - JavaScript
 
+## API used
+
+- "https://api.openweathermap.org/data/2.5/weather"
+- "https://api.openweathermap.org/data/2.5/onecall"
+
 ## Screen Shots
 
 ![Search city](images/shot1.png)
