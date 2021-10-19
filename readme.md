@@ -1,10 +1,12 @@
-# Project: Weather Dashboard
+# Weather Dashboard
 
+## Description 
 This project is a Weather Dashboard for a city that the user wants to look up. This page will display the current weather for the city as well as a 5 day weather forecast. When the user searches a city, the city is added to search history below. They can view what cities they have checked the weather for. This page is getting information from the Open Weather One Call API to give the user the needed information.
 
 [View deployed page here!](https://caitlinswickard.github.io/API-Weather-Dashboard/)
 
-### Criteria
+
+## User Story
 
 - GIVEN a weather dashboard with form inputs
 - WHEN I search for a city
@@ -17,6 +19,14 @@ This project is a Weather Dashboard for a city that the user wants to look up. T
 - THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
 - WHEN I click on a city in the search history
 - THEN I am again presented with current and future conditions for that city
+
+## Install
+
+Clone repository: 
+- https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository
+- Once repo has been cloned simply open the application in a web browser and run.
+
+
 
 ## Built With
 
